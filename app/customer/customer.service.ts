@@ -11,6 +11,7 @@ const URL_CUSTOMER = 'app/customers.json';
 export class CustomerService {
   constructor(private _http: Http) { }
 
+  // This is Ward's preference, on Wednesdays
   getCustomers() {
     return this._http.get(URL_CUSTOMER)
       .map((response: Response) => response.json())

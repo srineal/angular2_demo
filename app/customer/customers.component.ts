@@ -18,11 +18,21 @@ export class CustomersComponent implements OnInit {
   constructor(private _customerService: CustomerService) {  }
 
   ngOnInit() {
-    this._customerService.getCustomers()
-      .then((customers) => this.customers = customers)
-      .catch((err) => {
-        console.log(err); // dont do this, show the user a nice message
-      });
+    // Rx observable version with subscribe function to a customer array
+    this._customerService.getCustomers_RxObservable()
+      .subscribe(
+        // it worked
+        (customers) => this.customers = customers,
+        // error
+        (err) => { console.log(err); }
+      );
+
+    // Straight up promise to array
+    // this._customerService.getCustomers()
+    //   .then((customers) => this.customers = customers)
+    //   .catch((err) => {
+    //     console.log(err); // dont do this, show the user a nice message
+    //   });
 
     // Promise<any[]>
     // this.customers = this._customerService.getCustomers()
@@ -31,7 +41,7 @@ export class CustomersComponent implements OnInit {
     //   });
 
     // Rx observable version
-    // this.customers = this._customerService.getCustomers()
+    // this.customers = this._customerService.getCustomers_RxObservable()
     //   .catch((err) => {
     //     console.log(err); // dont do this, show the user a nice message
     //     return Observable.of(true);
