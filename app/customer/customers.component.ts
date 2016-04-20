@@ -12,17 +12,31 @@ import { CustomerService } from './customer.service';
   providers: [CustomerService]
 })
 export class CustomersComponent implements OnInit {
-  customers: Observable<any[]>;
+  // customers: Observable<any[]>;
+  customers: any[];
 
   constructor(private _customerService: CustomerService) {  }
 
   ngOnInit() {
-    this.customers = this._customerService.getCustomers()
+    this._customerService.getCustomers()
+      .then((customers) => this.customers = customers)
       .catch((err) => {
         console.log(err); // dont do this, show the user a nice message
-        return Observable.of(true);
-        // now we eat it, but only if the
-        // message has been communicated to the user
       });
+
+    // Promise<any[]>
+    // this.customers = this._customerService.getCustomers()
+    //   .catch((err) => {
+    //     console.log(err); // dont do this, show the user a nice message
+    //   });
+
+    // Rx observable version
+    // this.customers = this._customerService.getCustomers()
+    //   .catch((err) => {
+    //     console.log(err); // dont do this, show the user a nice message
+    //     return Observable.of(true);
+    //     // now we eat it, but only if the
+    //     // message has been communicated to the user
+    //   });
   }
 }
