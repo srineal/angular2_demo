@@ -4,8 +4,8 @@
 </div>
 
 <input type="text" [value]="name" (keyup.enter)="name = $event.target.value">
-
 <input type="text" [(ngModel)]="name">
-
 <button (click)="changeSuitColor()">Change Suit Color</button>
+<br/>
 
+<app-customers></app-customers>
